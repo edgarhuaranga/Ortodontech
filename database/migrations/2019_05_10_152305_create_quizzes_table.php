@@ -18,7 +18,6 @@ class CreateQuizzesTable extends Migration
             $table->string('category_id');
             $table->string('topic');
             $table->string('image_url');
-            $table->string('hex_color');
             $table->timestamps();
         });
     }

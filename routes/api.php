@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/questions', 'ApiController@index');
-Route::get('/topics', 'ApiController@topics');
+Route::get('/quizzes', 'ApiController@quizesByCategory');
 Route::get('/user/{user}', 'ApiController@show');
 Route::get('/ranking', 'ApiController@ranking');
 Route::get('{user}/answers', 'ApiController@userAnswers');
@@ -32,9 +32,3 @@ Route::get('/query', 'ApiController@queryLocations');
 Route::get('/hexaquery', 'ApiController@queryHexagons');
 
 Route::get('/savedinfo', 'ApiController@fullInfo');
-Route::get('/matrix', 'ApiController@getMatrix');
-Route::get('/hexagondata', 'ApiController@queryHexagon');
-Route::get('/hexagondetail', 'ApiController@hexagonDetail');
-Route::get('/internalhexagondetail','ApiController@internalHexagonDetail');
-
-Route::get('/smallerhexagons', 'ApiController@myLittleHexagons');
