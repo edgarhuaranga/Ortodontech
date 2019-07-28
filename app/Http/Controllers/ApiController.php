@@ -35,7 +35,7 @@ class ApiController extends Controller
 
     public function quizesByCategory(){
 
-      $quizzes = Category::all();
+      $quizzes = Category::all()->take(15);
 
       return response()->json([
         'requestType' => request('requestType'),
