@@ -16,6 +16,7 @@ class Category extends JsonResource
     {
         return [
           'name'=>$this->name,
+          'id'=>$this->id,
           'count'=>Quiz::where('category_id', $this->id)->count(),
           'quizzes'=>Quiz::where('category_id', $this->id)->get(),
         ];
