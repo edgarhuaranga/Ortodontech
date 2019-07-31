@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class User extends Model
 {
   public function answers(){
-    return $this->hasMany(Answer::class);
+    return Answer::where('user_id', $this->id);
   }
 }

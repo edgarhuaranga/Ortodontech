@@ -32,7 +32,6 @@ class ApiController extends Controller
       return new QuestionCollection(Question::all());
     }
 
-
     public function quizesByCategory(){
 
       $quizzes = Category::all();
@@ -58,9 +57,7 @@ class ApiController extends Controller
       #return ApiUser::collection(User::all());
     }
 
-
-    public function store(Request $request)
-    {
+    public function store(Request $request){
       if( request('requestType') == 'store_user'){
         $user = new User;
         $user->name = request('name');
@@ -90,9 +87,7 @@ class ApiController extends Controller
       }
     }
 
-
-    public function show($id)
-    {
+    public function show($id){
         $user = User::find($id);
         if(is_null($user)){
           return response()->json([
@@ -123,13 +118,11 @@ class ApiController extends Controller
       }
     }
 
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id){
         //
     }
 
-    public function destroy($id)
-    {
+    public function destroy($id){
         //
     }
 
@@ -183,6 +176,20 @@ class ApiController extends Controller
         'points' =>$points_received
         ]);
 
+    }
+
+    public function quizResume(Request $request){
+      $user = User::find(request('user_id'));
+      $quiz = Quiz::find(request('quiz_id'));
+
+      $questions = Question::where('quiz_id', $quiz->id);
+      $questionArrayId = Question::where('quiz_id', $quiz->id)->get()->pluck('id');
+      $answers = $user->answers()->whereIn('question_id', $questionArrayId)->get();
+
+      return response()->json([
+        'answers'=>$answers,
+        'ranking'=>$quiz->ranking(),
+      ]);
     }
 
 

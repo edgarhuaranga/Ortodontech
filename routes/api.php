@@ -25,10 +25,4 @@ Route::get('/question/{question}/check', 'ApiController@checkAnswer');
 
 Route::get('/posts', 'ApiController@posts');
 
-
-Route::get('/location', 'ApiController@saveLocation');
-Route::get('/manufacturers', 'ApiController@getManufacturers');
-Route::get('/query', 'ApiController@queryLocations');
-Route::get('/hexaquery', 'ApiController@queryHexagons');
-
-Route::get('/savedinfo', 'ApiController@fullInfo');
+Route::get('/resume/topic', 'ApiController@quizResume');

@@ -3,8 +3,28 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Question;
+use App\Answer;
 
 class Quiz extends Model
 {
-    //
+    public function questions(){
+      return Question::where('quiz_id', $this->id)->get();
+    }
+
+
+    public function ranking(){
+       $questionArrayId = Question::where('quiz_id', $this->id)->get()->pluck('id');
+
+       $answers = Answer::whereIn('question_id', $questionArrayId)->get();
+
+       $respuestasXUser = Answer::selectRaw('users.name, answers.user_id, sum(answers.points_received) as puntaje, count(answers.id) as q_respuestas')
+                                      ->whereIn('answers.question_id', $questionArrayId)
+                                      ->groupBy('answers.user_id', 'users.name')
+                                      ->join('users', 'users.id', '=', 'answers.user_id')
+                                      ->orderBy('puntaje', 'desc')
+                                      ->get();
+
+      return $respuestasXUser;
+    }
 }

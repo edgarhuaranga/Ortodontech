@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 use Faker\Factory;
 use App\Question;
 use App\TopicIcon;
+use App\User;
 
 class QuestionsTableSeeder extends Seeder
 {
@@ -14,6 +15,8 @@ class QuestionsTableSeeder extends Seeder
      */
     public function run()
     {
+
+
         App\Category::create(['name'=>"Arte"]);
         App\Category::create(['name'=>"Arte brasileira"]);
         App\Category::create(['name'=>"Artes marciais"]);
@@ -449,17 +452,58 @@ class QuestionsTableSeeder extends Seeder
         App\Quiz::create(['category_id'=>44,'topic'=>'Family Guy', 'image_url'=>'family-guy']);
         App\Quiz::create(['category_id'=>45,'topic'=>'A Bíblia', 'image_url'=>'the-bible']);
 
+        $faker = Factory::create();
+        $quizzes = App\Quiz::all();
+
+        for ($i = 0; $i <= 6000; $i++) {
+          Question::create([
+            'statement'=>$faker->sentence($nbWords = 6, $variableNbWords = true),
+            'option1'=>$faker->word,
+            'option2'=>$faker->word,
+            'option3'=>$faker->word,
+            'option4'=>$faker->word,
+            'quiz_id'=>$faker->numberBetween($min = 1, $max = $quizzes->count()),
+            'answer'=>$faker->numberBetween($min = 1, $max = 4),
+            'filename'=>$faker->imageUrl(640, 480),
+          ]);
+        }
+
+        User::create([
+            'name'=>'Edgar Huaranga',
+            'email'=>'edhu1227@gmail.com',
+            'city'=>'Lima',
+            'birthday'=>'1992-12-27',
+        ]);
+
+        for($i=0; $i<35; $i++){
+          User::create([
+              'name'=>$faker->name,
+              'email'=>$faker->email,
+              'city'=>$faker->city,
+              'birthday'=>$faker->dateTimeThisCentury->format('Y-m-d'),
+          ]);
+        }
+
+        for($i=0; $i<30000; $i++){
+          $user = User::find($faker->numberBetween(1, 36));
+          $question = Question::find($faker->numberBetween(1, 6000));
+          $answer =  $faker->numberBetween($min = 1, $max = 4);
+          $state = 2;
+          $points = 0;
+          if($question->answer == $answer){
+            $state = 1;
+            $points = 3;
+          }
+
+          App\Answer::create([
+            'user_id'=>$user->id,
+            'question_id'=>$question->id,
+            'user_answer'=>$answer,
+            'answer_state'=>$state,
+            'points_received'=>$points,
+          ]);
+        }
+
+
     }
 }
-
-
-/*Question::create([
-  'statement'=>$faker->sentence($nbWords = 6, $variableNbWords = true),
-  'option1'=>$faker->word,
-  'option2'=>$faker->word,
-  'option3'=>$faker->word,
-  'option4'=>$faker->word,
-  'category'=>$topics[$faker->numberBetween($min = 0, $max = count($topics)-1)],
-  'answer'=>$faker->numberBetween($min = 1, $max = 4),
-  'topic'=>$faker->word
-]);
