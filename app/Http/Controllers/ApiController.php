@@ -187,6 +187,7 @@ class ApiController extends Controller
       $answers = $user->answers()->whereIn('question_id', $questionArrayId)->get();
 
       return response()->json([
+        'requestType'=> request('requestType'),
         'answers'=>$answers,
         'ranking'=>$quiz->ranking(),
       ]);
