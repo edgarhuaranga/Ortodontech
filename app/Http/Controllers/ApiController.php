@@ -186,9 +186,10 @@ class ApiController extends Controller
       $questionArrayId = Question::where('quiz_id', $quiz->id)->get()->pluck('id');
       $answers = $user->answers()->whereIn('question_id', $questionArrayId)->get();
 
+
       return response()->json([
         'requestType'=> request('requestType'),
-        'answers'=>$answers,
+        'answers'=>ApiAnswer::collection($answers),
         'ranking'=>$quiz->ranking(),
       ]);
     }
