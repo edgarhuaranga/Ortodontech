@@ -21,7 +21,6 @@ class User extends JsonResource
             'email' => $this->email,
             'city' => $this->city,
             'birthday' => $this->birthday,
-            'points' =>$this->answers->sum('points_received'),
         ];
     }
 }
