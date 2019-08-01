@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class User extends Model
 {
   public function answers(){
-    return Answer::where('user_id', $this->id)->get();
+    return Answer::where('user_id', $this->id);
   }
 }
