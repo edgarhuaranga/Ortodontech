@@ -18,7 +18,7 @@ class Quiz extends Model
 
        $answers = Answer::whereIn('question_id', $questionArrayId)->get();
 
-       $respuestasXUser = Answer::selectRaw('users.name, answers.user_id, sum(answers.points_received) as puntaje, count(answers.id) as q_respuestas')
+       $respuestasXUser = Answer::selectRaw('users.name, answers.user_id, sum(answers.points_received) as puntaje, count(if(answers.answer_state=1, 1, null))*100/'.$questionArrayId->count().' as perc_progress')
                                       ->whereIn('answers.question_id', $questionArrayId)
                                       ->groupBy('answers.user_id', 'users.name')
                                       ->join('users', 'users.id', '=', 'answers.user_id')
