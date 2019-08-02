@@ -203,6 +203,7 @@ class ApiController extends Controller
       $question = Question::where('quiz_id', $quiz->id)->inRandomOrder()->first();
 
       return response()->json([
+        'requestType' => request('requestType'),
         'question' => $question,
       ]);
     }
