@@ -196,5 +196,16 @@ class ApiController extends Controller
       ]);
     }
 
+    public function requestQuestion(Request $request){
+      $user = User::find(request('user_id'));
+      $quiz = Quiz::find(request('quiz_id'));
+
+      $question = Question::where('quiz_id', $quiz->id)->inRandomOrder()->first();
+
+      return response()->json([
+        'question' => $question,
+      ]);
+    }
+
 
 }

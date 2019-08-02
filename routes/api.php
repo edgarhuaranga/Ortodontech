@@ -26,3 +26,4 @@ Route::get('/question/{question}/check', 'ApiController@checkAnswer');
 Route::get('/posts', 'ApiController@posts');
 
 Route::get('/resume/topic', 'ApiController@quizResume');
+Route::get('/quiz/requestquestion', 'ApiController@requestQuestion');
