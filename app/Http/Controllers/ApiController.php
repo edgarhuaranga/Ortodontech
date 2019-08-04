@@ -232,11 +232,11 @@ class ApiController extends Controller
                       ->where('promotor_id', $this->id)
                       ->whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()])
                       ->groupBy('boleta')->get();*/
-       $idsQuestions = App\Answer::where('user_id', $user->id)->where('answer_state', 1)->distinct('question_id')->pluck('question_id');
+       $idsQuestions = Answer::where('user_id', $user->id)->where('answer_state', 1)->distinct('question_id')->pluck('question_id');
        //$quizzes = App\Question::whereIn('id', $idsQuestions)->distinct('quiz_id')->pluck('quiz_id');
        // = App\Question::selectRaw('quiz_id, count(*) as avance')->whereIn('id', $idsQuestions)->orderBy('avance', 'desc')->groupBy('quiz_id')->jp
 
-       $mostTopics = App\Question::selectRaw('quizzes.topic, count(questions.quiz_id) as avance')
+       $mostTopics = Question::selectRaw('quizzes.topic, count(questions.quiz_id) as avance')
                   ->whereIn('questions.id', $idsQuestions)
                   ->join('quizzes', 'quizzes.id', 'questions.quiz_id')
                   ->groupBy('quizzes.topic')
