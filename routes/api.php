@@ -17,6 +17,7 @@ Route::get('/quizzes', 'ApiController@quizesByCategory');
 Route::get('/user/{user}', 'ApiController@show');
 Route::get('/ranking', 'ApiController@ranking');
 Route::get('{user}/answers', 'ApiController@userAnswers');
+Route::get('{user}/stats', 'ApiController@userStats');
 
 Route::post('/users', 'ApiController@store');
 Route::post('/usercheck', 'ApiController@checkUser');

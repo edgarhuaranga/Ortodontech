@@ -208,5 +208,57 @@ class ApiController extends Controller
       ]);
     }
 
+    public function userStats($id){
+      $user = User::find($id);
+
+      /*$correctAnswers = $user->answers()->where('answer_state', 1)->get()->count();
+
+      $hoy = Gestion::selectRaw('boleta, count(id) as items, sum(monto_venta*cantidad) as monto_venta')
+                      ->where('promotor_id', $this->id)
+                      ->where('created_at', '>',Carbon::today())
+                      ->groupBy('boleta')->get();
+
+      $ayer = Gestion::selectRaw('boleta, count(id) as items, sum(monto_venta*cantidad) as monto_venta')
+                      ->where('promotor_id', $this->id)
+                      ->whereBetween('created_at', [Carbon::yesterday(), Carbon::today()])
+                      ->groupBy('boleta')->get();
+
+      $semana = Gestion::selectRaw('boleta, count(id) as items, sum(monto_venta*cantidad) as monto_venta')
+                      ->where('promotor_id', $this->id)
+                      ->whereBetween('created_at',[Carbon::now()->startOfWeek(),Carbon::now()->endOfWeek()])
+                      ->groupBy('boleta')->get();
+
+      $mes = Gestion::selectRaw('boleta, count(id) as items, sum(monto_venta*cantidad) as monto_venta')
+                      ->where('promotor_id', $this->id)
+                      ->whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()])
+                      ->groupBy('boleta')->get();*/
+       $idsQuestions = App\Answer::where('user_id', 1)->where('answer_state', 1)->distinct('question_id')->pluck('question_id');
+       $quizzes = App\Question::whereIn('id', $idsQuestions)->distinct('quiz_id')->pluck('quiz_id');
+       $questions = App\Question::selectRaw('quiz_id, count(*) as avance')->whereIn('id', $idsQuestions)->orderBy('avance', 'desc')->groupBy('quiz_id')->jp
+
+       Question::selectRaw('quizzes.topic, count(questions.quiz_id) as avance')
+                  ->whereIn('questions.id', $idsQuestions)
+                  ->join('quizzes', 'quizzes.id', 'questions.quiz_id')
+                  ->groupBy('quizzes.topic')
+                  ->orderBy('avance','desc')
+                  ->take(10)
+                  ->get();
+
+
+       $history = Answer::selectRaw("count(*) as total,
+                                    count(if(answer_state=1, 1, null)) as correctas,
+                                    count(if(answer_state=2, 1, null)) as incorrectas,
+                                    count(if(answer_state=3, 1, null)) as blancas,
+                                    sum(points_received) as puntaje,
+                                    DATE_FORMAT(created_at, '%Y-%m-%d') as fecha")
+                      ->where('user_id', $user->id)
+                      ->whereBetween('created_at', [Carbon::today()->subDays(30), Carbon::now()])
+                      //->whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()])
+                      ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"))
+                      ->orderBy('created_at', 'desc')->get();
+
+       return $history;
+    }
+
 
 }

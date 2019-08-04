@@ -501,6 +501,7 @@ class QuestionsTableSeeder extends Seeder
             'user_answer'=>$answer,
             'answer_state'=>$state,
             'points_received'=>$points,
+            'created_at'=>$faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = null),
           ]);
         }
 
