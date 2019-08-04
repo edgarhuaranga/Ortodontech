@@ -236,7 +236,7 @@ class ApiController extends Controller
        $quizzes = App\Question::whereIn('id', $idsQuestions)->distinct('quiz_id')->pluck('quiz_id');
        $questions = App\Question::selectRaw('quiz_id, count(*) as avance')->whereIn('id', $idsQuestions)->orderBy('avance', 'desc')->groupBy('quiz_id')->jp
 
-       Question::selectRaw('quizzes.topic, count(questions.quiz_id) as avance')
+       $mostTopics = App\Question::selectRaw('quizzes.topic, count(questions.quiz_id) as avance')
                   ->whereIn('questions.id', $idsQuestions)
                   ->join('quizzes', 'quizzes.id', 'questions.quiz_id')
                   ->groupBy('quizzes.topic')
@@ -257,7 +257,12 @@ class ApiController extends Controller
                       ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"))
                       ->orderBy('created_at', 'desc')->get();
 
-       return $history;
+       //return $history;
+       return response()->json([
+         'requestType' => request('requestType'),
+         'history' => $history,
+         'topTopics'=>$mostTopics,
+       ]);
     }
 
 
