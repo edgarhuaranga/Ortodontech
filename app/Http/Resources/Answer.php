@@ -34,11 +34,11 @@ class Answer extends JsonResource
         }
 
         if($this->answer_state == 1)
-          $answer_state = "Correct";
+          $answer_state = "Correcto";
         else if($this->answer_state == 2)
-          $answer_state = "Incorrect";
+          $answer_state = "Incorrecto";
         else if($this->answer_state == 3)
-          $answer_state = "Blank";
+          $answer_state = "Branco";
 
         return [
           'user_id' => $this->user_id,
