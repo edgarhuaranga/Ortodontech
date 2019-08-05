@@ -241,7 +241,7 @@ class ApiController extends Controller
                   ->join('quizzes', 'quizzes.id', 'questions.quiz_id')
                   ->groupBy('quizzes.topic')
                   ->orderBy('avance','desc')
-                  ->take(10)
+                  ->take(5)
                   ->get();
 
 
