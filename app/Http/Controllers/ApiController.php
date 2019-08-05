@@ -210,33 +210,8 @@ class ApiController extends Controller
 
     public function userStats($id){
       $user = User::find($id);
-
-      /*$correctAnswers = $user->answers()->where('answer_state', 1)->get()->count();
-
-      $hoy = Gestion::selectRaw('boleta, count(id) as items, sum(monto_venta*cantidad) as monto_venta')
-                      ->where('promotor_id', $this->id)
-                      ->where('created_at', '>',Carbon::today())
-                      ->groupBy('boleta')->get();
-
-      $ayer = Gestion::selectRaw('boleta, count(id) as items, sum(monto_venta*cantidad) as monto_venta')
-                      ->where('promotor_id', $this->id)
-                      ->whereBetween('created_at', [Carbon::yesterday(), Carbon::today()])
-                      ->groupBy('boleta')->get();
-
-      $semana = Gestion::selectRaw('boleta, count(id) as items, sum(monto_venta*cantidad) as monto_venta')
-                      ->where('promotor_id', $this->id)
-                      ->whereBetween('created_at',[Carbon::now()->startOfWeek(),Carbon::now()->endOfWeek()])
-                      ->groupBy('boleta')->get();
-
-      $mes = Gestion::selectRaw('boleta, count(id) as items, sum(monto_venta*cantidad) as monto_venta')
-                      ->where('promotor_id', $this->id)
-                      ->whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()])
-                      ->groupBy('boleta')->get();*/
-       $idsQuestions = Answer::where('user_id', $user->id)->where('answer_state', 1)->distinct('question_id')->pluck('question_id');
-       //$quizzes = App\Question::whereIn('id', $idsQuestions)->distinct('quiz_id')->pluck('quiz_id');
-       // = App\Question::selectRaw('quiz_id, count(*) as avance')->whereIn('id', $idsQuestions)->orderBy('avance', 'desc')->groupBy('quiz_id')->jp
-
-       $mostTopics = Question::selectRaw('quizzes.topic, count(questions.quiz_id) as avance')
+      $idsQuestions = Answer::where('user_id', $user->id)->where('answer_state', 1)->distinct('question_id')->pluck('question_id');
+      $mostTopics = Question::selectRaw('quizzes.topic, count(questions.quiz_id) as avance')
                   ->whereIn('questions.id', $idsQuestions)
                   ->join('quizzes', 'quizzes.id', 'questions.quiz_id')
                   ->groupBy('quizzes.topic')
@@ -245,7 +220,7 @@ class ApiController extends Controller
                   ->get();
 
 
-       $history = Answer::selectRaw("count(*) as total,
+      $history = Answer::selectRaw("count(*) as total,
                                     count(if(answer_state=1, 1, null)) as correctas,
                                     count(if(answer_state=2, 1, null)) as incorrectas,
                                     count(if(answer_state=3, 1, null)) as blancas,
@@ -268,6 +243,23 @@ class ApiController extends Controller
          'puntos'=>$puntaje,
          'q_correctos'=>$qCorrectos,
        ]);
+    }
+
+    public function userProfile($id){
+      $user = User::find($id);
+
+      $puntaje = Answer::where('user_id', $user->id)->sum('points_received');
+      $qCorrectos = Answer::where('user_id', $user->id)->where('answer_state', 1)->count();
+      $answers = Answer::where('user_id', $user->id)->get();
+       //return $history;
+       return response()->json([
+         'requestType' => request('requestType'),
+         'answers'=>ApiAnswer::collection($answers),
+         'puntos'=>$puntaje,
+         'q_correctos'=>$qCorrectos,
+       ]);
+
+
     }
 
 
