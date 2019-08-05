@@ -255,7 +255,7 @@ class ApiController extends Controller
                       ->whereBetween('created_at', [Carbon::today()->subDays(30), Carbon::now()])
                       //->whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()])
                       ->orderBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"), 'asc')
-                      ->groupBy([DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"), 'answer_state','points_received'])
+                      ->groupBy([DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')")])
                       ->get();
 
        //return $history;
