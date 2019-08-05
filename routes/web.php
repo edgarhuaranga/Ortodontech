@@ -17,6 +17,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 });
 
+Route::get('/policy', function (){
+  return view('policy', compact('questions'));
+});
+
 Route::get('/questions', 'QuestionController@index');
 Route::get('/questions/create', 'QuestionController@create');
 Route::post('/questions', 'QuestionController@store');
