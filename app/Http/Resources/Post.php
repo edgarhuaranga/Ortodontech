@@ -18,7 +18,7 @@ class Post extends JsonResource
           'id' => $this->id,
           'title' => $this->title,
           'content' => $this->content,
-          'url_photo' => '/uploads/'.$this->filename,
+          'url_photo' => $this->filename,
           'updated_at' => $this->updated_at,
       ];
     }

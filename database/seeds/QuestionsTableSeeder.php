@@ -5,6 +5,7 @@ use Faker\Factory;
 use App\Question;
 use App\TopicIcon;
 use App\User;
+use App\Post;
 
 class QuestionsTableSeeder extends Seeder
 {
@@ -502,6 +503,14 @@ class QuestionsTableSeeder extends Seeder
             'answer_state'=>$state,
             'points_received'=>$points,
             'created_at'=>$faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = null),
+          ]);
+        }
+
+        for($i=0; $i<30; $i++){
+          Post::create([
+            'title'=>$faker->word,
+            'content'=>$faker->sentence($nbWords = 60, $variableNbWords = true),
+            'filename'=>$faker->imageUrl(640, 480),
           ]);
         }
 
