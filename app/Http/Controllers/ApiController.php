@@ -258,11 +258,15 @@ class ApiController extends Controller
                       ->groupBy([DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')")])
                       ->get();
 
+      $puntaje = Anser::where('user_id', $user->id)->sum('points_received');
+      $qCorrectos = Anser::where('user_id', $user->id)->where('answer_state', 1)->count();
        //return $history;
        return response()->json([
          'requestType' => request('requestType'),
          'history' => $history,
          'topTopics'=>$mostTopics,
+         'puntos'=>$puntaje,
+         'q_correctos'=>$qCorrectos,
        ]);
     }
 
