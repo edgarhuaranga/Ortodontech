@@ -39,7 +39,7 @@
                         <img class="img-fluid options-item" src="/uploads/{{$post->filename}}" alt="">
                       </div>
                     </div>
-                     <p>{{$post->content}}</p>
+                     {!!$post->content!!}
                   </div>
                </div>
             </div>

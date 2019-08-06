@@ -22,7 +22,7 @@
             </div>
             <div class="form-group">
                 <label >Content</label>
-                <textarea class="form-control" id="post_content" name="post_content" type="text" rows=3></textarea>
+                <textarea class="ckeditor" id="post_content" name="post_content" type="text" rows=3></textarea>
             </div>
             <div class="form-group">
                 <label>Photo</label>
@@ -59,5 +59,6 @@
   };
 
 </script>
+<script src="//cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
 <!-- END Page Container -->
 @endsection

@@ -509,7 +509,7 @@ class QuestionsTableSeeder extends Seeder
         for($i=0; $i<30; $i++){
           Post::create([
             'title'=>$faker->word,
-            'content'=>$faker->sentence($nbWords = 60, $variableNbWords = true),
+            'content'=>$faker->randomHtml(4, 5),
             'filename'=>$faker->imageUrl(640, 480),
           ]);
         }
