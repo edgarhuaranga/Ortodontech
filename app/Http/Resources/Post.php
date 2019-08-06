@@ -19,7 +19,7 @@ class Post extends JsonResource
           'title' => $this->title,
           'content' => $this->content,
           'url_photo' => $this->filename,
-          'updated_at' => $this->updated_at,
+          'updated_at' => $this->updated_at->diffForHumans(),
       ];
     }
 }
