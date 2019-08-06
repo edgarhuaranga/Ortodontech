@@ -85,7 +85,7 @@ class DemoSeeder extends Seeder
         'option3'=>'gengivite por má higienização',
         'option4'=>'nenhuma das anteriores',
         'quiz_id'=>29,
-        'answer'=>2,
+        'answer'=>3,
         'filename'=>'http://ortodontech.ehuaranga.com:8000/uploads/pregunta07.jpeg',
       ]);
 

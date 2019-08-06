@@ -170,10 +170,14 @@ class ApiController extends Controller
       }
 
 
+      $question = Question::where('quiz_id', $question->quiz_id)->inRandomOrder()->first();
+
+
       return response()->json([
         'status'=>$status,
         'message'=>$message,
-        'points' =>$points_received
+        'points' =>$points_received,
+        'question'=>$question,
         ]);
 
     }
