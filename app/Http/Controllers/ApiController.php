@@ -174,6 +174,7 @@ class ApiController extends Controller
 
 
       return response()->json([
+        'requestType' => request('requestType'),
         'status'=>$status,
         'message'=>$message,
         'points' =>$points_received,
