@@ -45,7 +45,7 @@ class ApiController extends Controller
     public function posts(){
       return response()->json([
         'requestType' => request('requestType'),
-        'data' => ApiPost::collection(Post::all()->orderBy('created_at', 'desc'))
+        'data' => ApiPost::collection(Post::orderBy('created_at', 'desc')->get())
       ]);
     }
 
