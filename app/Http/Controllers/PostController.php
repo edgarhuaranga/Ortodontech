@@ -48,7 +48,7 @@ class PostController extends Controller
       $post->content = request('post_content');
       $post->mime = $cover->getClientMimeType();
       $post->original_filename = $cover->getClientOriginalName();
-      $post->filename = $cover->getFilename().'.'.$extension;
+      $post->filename = "http://ortodontech.ehuaranga.com:8000/uploads/".$cover->getFilename().'.'.$extension;
       $post->save();
 
       return redirect('/posts');
