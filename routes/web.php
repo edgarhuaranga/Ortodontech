@@ -36,6 +36,10 @@ Route::get('/posts/create', 'PostController@create');
 Route::post('/posts', 'PostController@store');
 
 Route::get('/quizzes', 'QuizController@index');
+Route::get('/quizzes/{quiz}', 'QuizController@show');
+Route::get('/quizzes/{quiz}/new', 'QuizController@create');
+Route::post('/quizzes/{quiz}/new', 'QuizController@store');
+
 Route::get('/allquiz', function () {
     return UserResource::collection(Quiz::all())->groupBy(['category_id']);
 });

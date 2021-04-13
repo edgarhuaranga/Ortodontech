@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Question;
+use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
@@ -17,7 +18,8 @@ class QuestionController extends Controller
     public function index()
     {
         $questions = Question::all();
-        return view('question/index', compact('questions'));
+        $categories = Category::all();
+        return view('question/index', compact('questions', 'categories'));
 
     }
 
@@ -39,7 +41,6 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        dump($request);
         $cover = $request->file('image_statement');
         $extension = $cover->getClientOriginalExtension();
         Storage::disk('public')->put($cover->getFilename().'.'.$extension,  File::get($cover));

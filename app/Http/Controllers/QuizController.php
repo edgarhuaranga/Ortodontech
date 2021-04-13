@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Quiz;
 use App\Category;
+use App\Question;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class QuizController extends Controller
 {
@@ -24,10 +27,10 @@ class QuizController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        $categories = Category::all();
-        return view('quiz/create', compact('categories'));
+    public function create($quizid)
+    {   
+        $quiz = Quiz::find($quizid);
+        return view('quiz/create', compact('quiz'));
     }
 
     /**
@@ -36,9 +39,25 @@ class QuizController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Quiz $quiz)
     {
-        //
+        $cover = $request->file('image_statement');
+        $extension = $cover->getClientOriginalExtension();
+        Storage::disk('public')->put($cover->getFilename().'.'.$extension,  File::get($cover));
+
+        $question = new Question;
+        $question->quiz_id = $quiz->id;
+        $question->statement = request('question_statement');
+        $question->option1 = request('question_optionA');
+        $question->option2 = request('question_optionB');
+        $question->option3 = request('question_optionC');
+        $question->option4 = request('question_optionD');
+        $question->answer = request('radios_options');
+        $question->mime= $cover->getClientMimeType();
+        $question->original_filename= $cover->getClientOriginalName();
+        $question->filename= $cover->getFilename().'.'.$extension;
+        $question->save();
+        return redirect('/quizzes/'.$quiz->id);
     }
 
     /**
@@ -49,7 +68,9 @@ class QuizController extends Controller
      */
     public function show(Quiz $quiz)
     {
-        //
+        $questions = Question::where('quiz_id', $quiz->id)->get();
+
+        return view('quiz/show', compact('questions', 'quiz'));
     }
 
     /**

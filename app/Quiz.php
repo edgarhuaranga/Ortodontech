@@ -5,11 +5,16 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Question;
 use App\Answer;
+use App\Category;
 
 class Quiz extends Model
 {
     public function questions(){
       return Question::where('quiz_id', $this->id)->get();
+    }
+
+    public function category(){
+      return Category::where('id', $this->category_id)->first();
     }
 
 

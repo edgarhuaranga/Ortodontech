@@ -67,11 +67,6 @@
                                     <a class="dropdown-item" href="be_pages_generic_profile.html">
                                         <i class="far fa-fw fa-user mr-1"></i> Profile
                                     </a>
-                                    <a class="dropdown-item d-flex align-items-center justify-content-between" href="be_pages_generic_inbox.html">
-                                        <span><i class="far fa-fw fa-envelope mr-1"></i> Inbox</span>
-                                        <span class="badge badge-primary">3</span>
-                                    </a>
-
                                     <div role="separator" class="dropdown-divider"></div>
 
                                     <div role="separator" class="dropdown-divider"></div>
@@ -104,16 +99,7 @@
             <!-- Main Container -->
             <main id="main-container">
 
-                <!-- Hero -->
-                <div class="bg-body-light">
-                    <div class="content content-full">
-                        <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
-                            <h1 class="flex-sm-fill font-size-h2 font-w400 mt-2 mb-0 mb-sm-2">Default Layout</h1>
-
-                        </div>
-                    </div>
-                </div>
-                <!-- END Hero -->
+                
 
                 @yield('content')
 

@@ -6,107 +6,68 @@
       <div class="block-header block-header-default">
          <h3 class="block-title">New quiz</h3>
       </div>
-      <form action="/posts" method="POST" enctype="multipart/form-data">
+      <form action="/quizzes/{{$quiz->id}}/new" method="POST" enctype="multipart/form-data">
         {{csrf_field()}}
         <div class="block-content block-content-full tab-content" style="min-height: 290px;">
           <div class="tab-pane active show" id="wizard-simple-step1" role="tabpanel">
             <div class="form-group">
-              <label for="example-select">Selecciona la categoria</label>
-              <select class="form-control" id="example-select" name="example-select">
-                  <option value="0">Please select</option>
-                  @foreach($categories as $category)
-                    <option value="{{$category->id}}">{{$category->name}}</option>
-                  @endforeach
-                </select>
+              <label>Pregunta</label>
+                <textarea class="form-control" id="question_statement" name="question_statement" rows="3" type="text"></textarea>
             </div>
             <div class="form-group">
-              <label>Topic</label>
-                <input class="form-control" id="post_title" name="post_title" type="text" autocomplete="off"></input>
+              <label>Elige una imagen</label>
+              <div>
+                <input type="file"  name="image_statement">
+              </div>
+            </div>
+            
+            <div class="form-group">
+                <input class="form-control" id="question_optionA" name="question_optionA" type="text" placeholder="Option A" >
+            </div>
+            <div class="form-group">
+                <input class="form-control" id="question_optionB" name="question_optionB" type="text" placeholder="Option B">
+            </div>
+            <div class="form-group">
+                <input class="form-control" id="question_optionC" name="question_optionC" type="text" placeholder="Option C">
+            </div>
+            <div class="form-group">
+                <input class="form-control" id="question_optionD" name="question_optionD" type="text" placeholder="Option D">
             </div>
 
-            <div class="col-lg-8">
-            <div class="form-group row items-push mb-0">
-              <div class="col-md-2">
-                <div class="custom-control custom-block custom-control-primary mb-1">
-                  <input type="radio" class="custom-control-input" id="example-rd-custom-block1" name="example-rd-custom-block">
-                  <label class="custom-control-label" for="example-rd-custom-block1">
-                  <span class="d-block font-w400 text-center my-3">
-                      <img src="/uploads/arte_design00.png" alt="">
-                    </span>
-                  </label>
-                  <span class="custom-block-indicator">
-                    <i class="fa fa-check"></i>
-                  </span>
-                </div>
-                </div>
-                <div class="col-md-2">
-                  <div class="custom-control custom-block custom-control-primary mb-1">
-                  <input type="radio" class="custom-control-input" id="example-rd-custom-block2" name="example-rd-custom-block">
-                  <label class="custom-control-label" for="example-rd-custom-block2">
-                    <span class="d-block font-w400 text-center my-3">
-                      <img src="/uploads/arte_design01.png" alt="">
-                    </span>
-                  </label>
-                  <span class="custom-block-indicator">
-                    <i class="fa fa-check"></i>
-                  </span>
-                </div>
+            <div class="form-group">
+              <label class="d-block">Answer</label>
+              <div class="form-check-inline">
+                <input class="form-check-input" id="option1" name="radios_options" value="1" checked="" type="radio">
+                <label class="form-check-label" for="option1">Option 1</label>
               </div>
-              <div class="col-md-2">
-                <div class="custom-control custom-block custom-control-primary mb-1">
-                  <input type="radio" class="custom-control-input" id="example-rd-custom-block3" name="example-rd-custom-block">
-                  <label class="custom-control-label" for="example-rd-custom-block3">
-                    <span class="d-block font-w400 text-center my-3">
-                      <img src="/uploads/arte_design02.png" alt="">
-                    </span>
-                  </label>
-                  <span class="custom-block-indicator">
-                    <i class="fa fa-check"></i>
-                  </span>
-                </div>
+              <div class="form-check-inline">
+                <input class="form-check-input" id="option2" name="radios_options" value="2" type="radio">
+                <label class="form-check-label" for="option2">Option 2</label>
               </div>
-              <div class="col-md-2">
-                <div class="custom-control custom-block custom-control-primary mb-1">
-                  <input type="radio" class="custom-control-input" id="example-rd-custom-block4" name="example-rd-custom-block">
-                  <label class="custom-control-label" for="example-rd-custom-block4">
-                    <span class="d-block font-w400 text-center my-3">
-                      <img src="/uploads/arte_design03.png" alt="">
-                    </span>
-                  </label>
-                  <span class="custom-block-indicator">
-                    <i class="fa fa-check"></i>
-                  </span>
-                </div>
+              <div class="form-check-inline">
+                <input class="form-check-input" id="option3" name="radios_options" value="3" type="radio">
+                <label class="form-check-label" for="option3">Option 3</label>
               </div>
-              <div class="col-md-2">
-                <div class="custom-control custom-block custom-control-primary mb-1">
-                  <input type="radio" class="custom-control-input" id="example-rd-custom-block5" name="example-rd-custom-block">
-                  <label class="custom-control-label" for="example-rd-custom-block5">
-                    <span class="d-block font-w400 text-center my-3">
-                      <img src="/uploads/arte_design04.png" alt="">
-                    </span>
-                  </label>
-                  <span class="custom-block-indicator">
-                    <i class="fa fa-check"></i>
-                  </span>
-                </div>
+              <div class="form-check-inline">
+                <input class="form-check-input" id="option4" name="radios_options" value="4" type="radio">
+                <label class="form-check-label" for="option4">Option 4</label>
               </div>
             </div>
-            </div>
-          </div>
 
 
           </div>
           <div class="block-content block-content-sm block-content-full bg-body-light rounded-bottom">
             <div class="row">
-
               <div class="col-6 text-right">
                 <button type="submit" class="btn btn-primary">
                   Submit
                 </button>
               </div>
             </div>
-          </div>
+          </div>          
+
+
+          
       </form>
    </div>
 </div>

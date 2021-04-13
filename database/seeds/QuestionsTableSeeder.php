@@ -458,7 +458,7 @@ class QuestionsTableSeeder extends Seeder
 
         for ($i = 0; $i <= 6000; $i++) {
           Question::create([
-            'statement'=>$faker->sentence($nbWords = 6, $variableNbWords = true),
+            'statement'=>$faker->word,
             'option1'=>$faker->word,
             'option2'=>$faker->word,
             'option3'=>$faker->word,
@@ -476,16 +476,16 @@ class QuestionsTableSeeder extends Seeder
             'birthday'=>'1992-12-27',
         ]);
 
-        for($i=0; $i<35; $i++){
+        /*for($i=0; $i<35; $i++){
           User::create([
               'name'=>$faker->name,
               'email'=>$faker->email,
               'city'=>$faker->city,
               'birthday'=>$faker->dateTimeThisCentury->format('Y-m-d'),
           ]);
-        }
+        }*/
 
-        for($i=0; $i<30000; $i++){
+        /*for($i=0; $i<30000; $i++){
           $user = User::find($faker->numberBetween(1, 36));
           $question = Question::find($faker->numberBetween(1, 6000));
           $answer =  $faker->numberBetween($min = 1, $max = 4);
@@ -504,12 +504,12 @@ class QuestionsTableSeeder extends Seeder
             'points_received'=>$points,
             'created_at'=>$faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = null),
           ]);
-        }
+        }*/
 
         for($i=0; $i<30; $i++){
           Post::create([
             'title'=>$faker->word,
-            'content'=>$faker->randomHtml(4, 5),
+            'content'=>$faker->randomHtml(2, 3),
             'filename'=>$faker->imageUrl(640, 480),
           ]);
         }

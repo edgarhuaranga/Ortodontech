@@ -83,12 +83,12 @@
                 <input class="form-check-input" id="option4" name="radios_options" value="4" type="radio">
                 <label class="form-check-label" for="option4">Option 4</label>
               </div>
-          </div>
+            </div>
 
-          <div class="form-group">
-              <label >Topic</label>
-              <input class="form-control" id="topic" name="topic" type="text">
-          </div>
+            <div class="form-group">
+                <label >Topic</label>
+                <input class="form-control" id="topic" name="topic" type="text">
+            </div>
 
           </div>
           <div class="block-content block-content-sm block-content-full bg-body-light rounded-bottom">
@@ -109,17 +109,5 @@
    </div>
 </div>
 
-<script type="text/javascript">
-  function cleanForm(){
-    console.log("Limpiando el formulario")
-    document.getElementById("question_statement").value="";
-    document.getElementById("question_optionA").value="";
-    document.getElementById("question_optionB").value="";
-    document.getElementById("question_optionC").value="";
-    document.getElementById("question_optionD").value="";
-    document.getElementById("question_optionE").value="";
-  };
-
-</script>
 <!-- END Page Container -->
 @endsection
