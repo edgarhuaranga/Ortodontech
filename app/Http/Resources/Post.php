@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class Post extends JsonResource
@@ -14,6 +15,7 @@ class Post extends JsonResource
      */
     public function toArray($request)
     {
+      Carbon::setLocale('pt_BR');
       return [
           'id' => $this->id,
           'title' => $this->title,
